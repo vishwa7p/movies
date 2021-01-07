@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'new_asmt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'movies_db',
-        'USER': 'vishwa',
-        'PASSWORD': 'password',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
     }
 }

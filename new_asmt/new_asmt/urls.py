@@ -21,13 +21,13 @@ from movies_app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('registration/', Registration.as_view()),
-    # path('login/', Login.as_view()),
     path('add_poster/', AddPoster.as_view()),
     path('add_movie/', AddMovies.as_view()),
     path('update_movie/<int:pk>/', UpdateMovies.as_view()),
     path('delete_movie/<int:pk>/', DeleteMovies.as_view()),
     path('movie_list/', MoviesList.as_view()),
+    # path('registration/', Registration.as_view()),
+    # path('login/', Login.as_view()),
 ]
 
 

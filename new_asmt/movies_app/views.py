@@ -95,6 +95,7 @@ class MoviesList(APIView):
                          "data": my_list}
         return Response(response_data, status=status.HTTP_200_OK)
 
+# Below API's are for Sign up and Sign in
 
 # class Registration(APIView):
 #     def post(self, request):
@@ -116,7 +117,6 @@ class MoviesList(APIView):
 #             users.set_password(self.password)
 #             users.save()
 #             my_group = Group.objects.get_or_create(name=self.group)
-#             print(my_group)
 #             my_group.user_set.add(self.group)
 #             response_data = {"Status": "Success",
 #                              "message": "registration success",
@@ -141,12 +141,9 @@ class MoviesList(APIView):
 #             response_data = {"message": 'password required for login'}
 #             return Response(response_data, status=status.HTTP_404_NOT_FOUND)
 #         user = User.objects.get(username=username)
-#         print(user)
 #         user1 = authenticate(username=username, password=password)
-#         print(user1, 'user')
 #         if user:
 #             token1 = Token.objects.filter(key=token)
-#             print(token1, 'token')
 #             if token1:
 #                 token1.delete()
 #             token1 = Token.objects.create(user=user)

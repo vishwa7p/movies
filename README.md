@@ -22,6 +22,17 @@ Install Dependencies:-
 ```
 pip3 install -r requirements.txt
 ```
+In Settings.py file should add the database credentials like below,
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '*****',
+        'USER': '******',
+        'PASSWORD': '******',
+        'HOST': 'localhost',
+    }
+}
+```
 Make Migrations:-
 ```
 ./manage.py makemigrations
