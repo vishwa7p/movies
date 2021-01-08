@@ -43,7 +43,10 @@ class AddMovies(APIView):
                              "data": {}}
             return Response(response_data, status=status.HTTP_200_OK)
         else:
-            return Response("access denied", status=status.HTTP_400_BAD_REQUEST)
+            response_data = {"Status": "Failure",
+                             "message": "access denied",
+                             "data": {}}
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UpdateMovies(APIView):
@@ -58,13 +61,29 @@ class UpdateMovies(APIView):
             print(e)
             return Response('json_key_error', status=status.HTTP_406_NOT_ACCEPTABLE)
         if self.group == "admin":
-            movie = Movies.objects.filter(pk=pk).update(name=self.name, director=self.director)
-            response_data = {"Status": "Success",
-                             "message": "updated successfully",
-                             "data": {}}
-            return Response(response_data, status=status.HTTP_200_OK)
+            try:
+                movie = Movies.objects.get(pk=pk)
+                movie.name = self.name
+                movie.director = self.director
+                movie.save()
+                print(movie, "************")
+                response_data = {"Status": "Success",
+                                 "message": "updated successfully",
+                                 "data": {}}
+                return Response(response_data, status=status.HTTP_200_OK)
+            except Exception as e:
+                print(e)
+                response_data = {"Status": "Failure",
+                                 "message": "Invalid",
+                                 "data": {}}
+                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+
         else:
-            return Response("access denied", status=status.HTTP_400_BAD_REQUEST)
+            response_data = {"Status": "Failure",
+                             "message": "access denied",
+                             "data": {}}
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class DeleteMovies(APIView):
@@ -72,14 +91,25 @@ class DeleteMovies(APIView):
         json_data = request.data
         self.group = json_data['group']
         if self.group == "admin":
-            movie = Movies.objects.get(pk=pk)
-            movie.delete()
-            response_data = {"Status": "Success",
-                             "message": "deleted successfully",
-                             "data": {}}
-            return Response(response_data, status=status.HTTP_200_OK)
+            try:
+                movie = Movies.objects.get(pk=pk)
+                movie.delete()
+                response_data = {"Status": "Success",
+                                 "message": "deleted successfully",
+                                 "data": {}}
+                return Response(response_data, status=status.HTTP_200_OK)
+            except Exception as e:
+                print(e)
+                response_data = {"Status": "Failure",
+                                 "message": "Invalid",
+                                 "data": {}}
+                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
         else:
-            return Response("access denied", status=status.HTTP_400_BAD_REQUEST)
+            response_data = {"Status": "Failure",
+                             "message": "access denied",
+                             "data": {}}
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MoviesList(APIView):
